@@ -15,7 +15,12 @@ const express = require('express'),
     app.get('/', routes.index);
     //Views
     app.get('/create', routes.create);
-    app.post('/loggedin', urlencodedParser, routes.loggedin);
+    //app.post('/loggedin', urlencodedParser, routes.loggedin);
+
+     //Account
+     app.post('/create/Account', urlencodedParser, routes.createAcc);
+
+
 
     //API
     app.listen(3000);
