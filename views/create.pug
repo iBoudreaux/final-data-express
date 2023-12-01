@@ -6,13 +6,18 @@ block content
         div.container
             form(id='form' method="post" action="/loggedin")
                 p Username: 
-                    input(type='text' name='username') 
+                    p
+                        input(type='text' name='username') 
                 p Password: 
-                    input(type='text' name='password')
+                    p
+                        input(type='text' name='password')
                 p Email: 
-                    input(type='text' name='email')
+                    p
+                        input(type='text' name='email')
                 p Age: 
-                    input(type='text' name='age')
+                    p
+                        input(type='text' name='age')
+                br
                 p Question 1:
                     text=q1
                     p
@@ -25,5 +30,6 @@ block content
                     text(id='q3')
                     p
                         input(type='text' name='ans3')
+                br
                 p 
                     input(type='submit' value='Create Account')
