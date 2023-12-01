@@ -118,3 +118,7 @@ p{
 input[type=text]{
     border-radius: 15px;
 }
+
+h3 {
+    text-align: center;
+}

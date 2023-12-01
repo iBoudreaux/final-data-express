@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    form(id= 'form' method="post"action="/update/Account/#user._id}")
+        p Username:
+            input(type='text' name='username' value=user.username)
+        p Password:
+            input(type='password' name='password') // Note: Use password type for security
+        p Email:
+            input(type='text' name='email' value=user.email)
+        p Age:
+            input(type='text' name='age' value=user.age)
+        p Question 1:
+            text=q1
+            p
+                input(type='text' name='ans1' value=user.ans1)
+        p Question 2:
+            text(id='q2')
+            p
+                input(type='text' name='ans2' value=user.ans2)
+        p Question 3:
+            text(id='q3')
+            p
+                input(type='text' name='ans3' value=user.ans3)
+        p
+            input(type='submit' value='Update Account')
+        
