@@ -19,20 +19,6 @@ block head-block
                         a(href="/" class="signout")
                             i(class="fa-solid fa-right-from-bracket")
                 div(class="rightbox")
-                    div(class="profile")
-                        h1 Edit Questions
-                            form(id= 'form' method="post" action="/update/Account/#user._id}")
-                                div(class="space")
-                                h2 Favorite Pony?
-                                    text(id='q1')
-                                        input(type='text' name='ans1' )
-                                div(class="space")
-                                h2 Favorite Cutie Mark?
-                                    text(id='q2')
-                                        input(type='text' name='ans2' )
-                                div(class="space")
-                                h2  Who would win? Twilight Sparkle or Goku?
-                                    text(id='q3')
-                                        input(type='text' name='ans3' )
-
-                                input(type='submit' value='Update Answers')
+                    div(class="delete2")
+                        h2 Delete Account?
+                        input(class='btn' type='submit' value='Delete Account')

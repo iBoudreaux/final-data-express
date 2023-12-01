@@ -16,6 +16,9 @@ const express = require('express'),
     app.get('/', routes.index);
     app.get('/create', routes.create);
     app.get('/login', routes.login);
+    app.get('/profile', routes.profile);
+    app.get('/edit', routes.edit);
+    app.get('/delete', routes.delete);
     //app.post('/loggedin', urlencodedParser, routes.loggedin);
 
      //Account

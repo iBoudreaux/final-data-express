@@ -44,6 +44,24 @@ exports.login = (req, res) => {
     });
 }
 
+exports.profile = (req, res) => {
+    res.render ('profile', {
+        title: 'Users Account'
+    });
+}
+
+exports.edit = (req, res) => {
+    res.render ('edit', {
+        title: 'Edit Questions Account'
+    });
+}
+
+exports.delete = (req, res) => {
+    res.render ('delete', {
+        title: 'Delete Account'
+    });
+}
+
 //creating record/Account
 exports.createAcc = (req, res) => {
     let ageNum = Number(req.body.age);

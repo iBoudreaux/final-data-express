@@ -2,10 +2,10 @@ extends loggedinLayout
 
 block logged-content
 block head-block
-    link(rel="stylesheet" href="edit.css")
+    link(rel="stylesheet" href="profile.css")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    body 
+    body
         div.layoutspace
             div(class="container")
                 div(class="leftbox")
@@ -20,19 +20,13 @@ block head-block
                             i(class="fa-solid fa-right-from-bracket")
                 div(class="rightbox")
                     div(class="profile")
-                        h1 Edit Questions
-                            form(id= 'form' method="post" action="/update/Account/#user._id}")
-                                div(class="space")
-                                h2 Favorite Pony?
-                                    text(id='q1')
-                                        input(type='text' name='ans1' )
-                                div(class="space")
-                                h2 Favorite Cutie Mark?
-                                    text(id='q2')
-                                        input(type='text' name='ans2' )
-                                div(class="space")
-                                h2  Who would win? Twilight Sparkle or Goku?
-                                    text(id='q3')
-                                        input(type='text' name='ans3' )
-
-                                input(type='submit' value='Update Answers')
+                        h1 Profile Overview
+                        div(class="space")
+                            h2 Username
+                            p Username Placeholder
+                        div(class="space")
+                            h2 Email 
+                            p Email Placeholder
+                        div(class="space")
+                            h2 Password 
+                            p *********

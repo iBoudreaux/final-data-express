@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poppins:ital@1&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body {
+    background: url("/images/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.06s;
+
+}
+
+header .logo {
+    position: relative;
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: whitesmoke;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: whitesmoke;
+    transform: scaleX(0);
+    transition: 0.5s ease-in-out;
+    transform-origin: right;
+
+}
+
+.navbar a:hover::before {
+    width: 100%;
+    transform: scaleX(1);
+    transform-origin: left;
+
+}

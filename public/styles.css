@@ -89,7 +89,7 @@ header .logo {
     justify-content: center;
     align-items: center;
     position: relative;
-    background-color: rgb(135, 196, 216);
+    background-color: #87c4d8;
     border-radius: 30px;
     border-style: solid;
     border-color: rgb(43, 99, 118);
@@ -109,7 +109,7 @@ input[type=submit]{
     text-decoration: none;
     outline: none;
     color:white;
-    background-color: rgb(69, 159, 189);
+    background-color: #459fbd;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px rgb(10, 103, 134);
