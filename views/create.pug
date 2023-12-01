@@ -18,18 +18,22 @@ block content
                     p
                         input(type='text' name='age')
                 br
-                p Question 1:
+                h2 Questions:
+                br
+                p Favorite Pony?
                     text=q1
                     p
                         input(type='text' name='ans1')
-                p Question 2:
+                p Favorite Cutie Mark?
                     text(id='q2')
                     p
                         input(type='text' name='ans2')
-                p Question 3:
+                p Who would win? Twilight Sparkle or Goku?
                     text(id='q3')
                     p
                         input(type='text' name='ans3')
                 br
                 p 
                     input(type='submit' value='Create Account')
+                
+                a.loginLink(href='/login') Already have an account?
