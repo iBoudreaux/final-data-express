@@ -2,6 +2,7 @@
 
 *{
     font-family: 'Poppins', sans-serif;
+    color: whitesmoke;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -39,7 +40,7 @@ header {
 
 header .logo {
     position: relative;
-    color: #000;
+    color: whitesmoke;
     text-decoration: none;
     font-size: 32px;
     font-weight: 700;
@@ -51,7 +52,7 @@ header .logo {
 .navbar a {
     position: relative;
     font-size: 18px;
-    color: #000;
+    color: whitesmoke;
     font-weight: 500;
     text-decoration: none;
     margin-left: 40px;
@@ -65,7 +66,7 @@ header .logo {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: black;
+    background-color: whitesmoke;
     transform: scaleX(0);
     transition: 0.5s ease-in-out;
     transform-origin: right;

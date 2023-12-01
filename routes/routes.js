@@ -38,6 +38,12 @@ exports.create = (req, res) => {
     });
 }
 
+exports.login = (req, res) => {
+    res.render ('login', {
+        title: 'Login into Account'
+    });
+}
+
 //creating record/Account
 exports.createAcc = (req, res) => {
     let ageNum = Number(req.body.age);

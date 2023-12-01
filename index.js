@@ -12,9 +12,10 @@ const express = require('express'),
     app.set('views', path.join(__dirname, 'views'));
     app.use(express.static(path.join(__dirname, 'public')));
 
-    app.get('/', routes.index);
     //Views
+    app.get('/', routes.index);
     app.get('/create', routes.create);
+    app.get('/login', routes.login);
     //app.post('/loggedin', urlencodedParser, routes.loggedin);
 
      //Account
