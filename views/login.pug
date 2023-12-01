@@ -1,13 +1,12 @@
 extends layout 
 
 block content 
-    div.layoutspace
-        div.container
-            form(id="loginform" action="login", method="post") 
-                h3 Login
-                p Username: 
-                    input(type="text" name="username")
-                p Password: 
-                    input(type="text" name="password")
-                p 
-                    input(type="submit" value="Log in")
+
+    form(id="loginform" action="/logged/in" method="post") 
+        p Username: 
+            input(type="text" name="username")
+        p Password: 
+            input(type="text" name="password")
+        p 
+            input(type="submit" value="Log in")
+    p=errorMsg

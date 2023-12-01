@@ -69,10 +69,45 @@ exports.createAcc = (req, res) => {
 }
 
 //retrieving record/Account
+exports.getUser = (req, res) => {
+    Account.find({})
+}
+
 
 //render for loggedin user
-exports.loggedin = (req, res) => {
-    res.render ('loggedin', {
-        title: 'Logged in User',
+exports.login = (req, res) => {
+    res.render ('login', {
+        title: "Log in"
+    })
+}
+
+exports.loggedin = async (req, res) => {
+    let usernameStr = req.body.username;
+    let passwordStr = req.body.password;
+
+    User.findOne()
+    .where("username")
+    .equals(usernameStr)
+    .where("password")
+    .equals(passwordStr)
+    .select("username")
+    .then((account) => {
+        console.log(account);
+        res.send(`Welcome, ${account.username}!`)
+    })
+    .catch((err) => {
+        console.log(err);
+        res.render("login", {
+            errorMsg: 'Username and/or password is incorect.'
+        })
     });
+
+    
+    
+}
+
+exports.edit = (req, res) => {
+    res.render ('edit', {
+        title: 'Edit Your Account'
+    })
 }

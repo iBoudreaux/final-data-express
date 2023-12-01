@@ -20,8 +20,10 @@ const express = require('express'),
 
      //Account
     app.post('/create/Account', urlencodedParser, routes.createAcc);
-    
+    app.post('/logged/in', urlencodedParser, routes.loggedin);
+
 
 
     //API
+
     app.listen(3000);
