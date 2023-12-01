@@ -3,7 +3,10 @@ html
     head
         title Poniverse
         link(rel='stylesheet', href='styles.css')
-    body
-        header
-            h3=title
-            block content
+    body 
+    header.header
+        a.logo(href='/') Cutie Mark Crusaders
+        nav.navbar
+            a(href='/create') Register
+            a(href='/login') Login
+block content
