@@ -19,11 +19,10 @@ const express = require('express'),
     app.get('/profile', routes.profile);
     app.get('/edit', routes.edit);
     app.get('/delete', routes.delete);
-    //app.post('/loggedin', urlencodedParser, routes.loggedin);
 
      //Account
     app.post('/create/Account', urlencodedParser, routes.createAcc);
-    app.post('/logged/in', urlencodedParser, routes.loggedin);
+    app.post('/profile/login', urlencodedParser, routes.profile);
 
 
 

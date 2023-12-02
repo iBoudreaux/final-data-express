@@ -32,37 +32,6 @@ exports.index = (req, res) => {
 }
 
 //render for create acc form
-exports.create = (req, res) => {
-    res.render ('create', {
-        title: 'Create an Account'
-    });
-}
-
-exports.login = (req, res) => {
-    res.render ('login', {
-        title: 'Login into Account'
-    });
-}
-
-exports.profile = (req, res) => {
-    res.render ('profile', {
-        title: 'Users Account'
-    });
-}
-
-exports.edit = (req, res) => {
-    res.render ('edit', {
-        title: 'Edit Questions Account'
-    });
-}
-
-exports.delete = (req, res) => {
-    res.render ('delete', {
-        title: 'Delete Account'
-    });
-}
-
-//creating record/Account
 exports.createAcc = (req, res) => {
     let ageNum = Number(req.body.age);
     let account = new User({
@@ -78,7 +47,7 @@ exports.createAcc = (req, res) => {
     account.save()
         .then((account) => {
             console.log(account);
-            res.send('Account made');
+            res.send('Account made successfully.');
         })
         .catch((err) => {
             console.log(err);
@@ -86,20 +55,13 @@ exports.createAcc = (req, res) => {
         });
 }
 
-//retrieving record/Account
-exports.getUser = (req, res) => {
-    Account.find({})
-}
-
-
-//render for loggedin user
 exports.login = (req, res) => {
     res.render ('login', {
-        title: "Log in"
-    })
+        title: 'Login into Account'
+    });
 }
 
-exports.loggedin = async (req, res) => {
+exports.profile = async (req, res) => {
     let usernameStr = req.body.username;
     let passwordStr = req.body.password;
 
@@ -108,24 +70,31 @@ exports.loggedin = async (req, res) => {
     .equals(usernameStr)
     .where("password")
     .equals(passwordStr)
-    .select("username")
+    .select("username email")
     .then((account) => {
         console.log(account);
-        res.send(`Welcome, ${account.username}!`)
+        res.render("profile", {
+            username: usernameStr,
+            email: account.email
+        });
     })
     .catch((err) => {
         console.log(err);
         res.render("login", {
-            errorMsg: 'Username and/or password is incorect.'
-        })
+            errorMsg: 'Username and/or password is incorrect.'
+        });
     });
-
-    
     
 }
 
 exports.edit = (req, res) => {
     res.render ('edit', {
         title: 'Edit Your Account'
-    })
+    });
+}
+
+exports.delete = (req, res) => {
+    res.render ('delete', {
+        title: 'Delete Account'
+    });
 }
