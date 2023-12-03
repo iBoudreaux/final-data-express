@@ -1,5 +1,6 @@
 const {response} = require('express');
 const mongoose = require('mongoose');
+const axios = require('axios');
 
 //Database stuff
 
@@ -61,30 +62,47 @@ exports.login = (req, res) => {
     });
 }
 
-exports.profile = async (req, res) => {
+exports.loginCheck = async (req, res) => {
     let usernameStr = req.body.username;
     let passwordStr = req.body.password;
 
-    User.findOne()
+    var userFound =  await User.findOne()
     .where("username")
     .equals(usernameStr)
     .where("password")
     .equals(passwordStr)
-    .select("username email")
+    .select("username email age password answer1 answer2 answer3")
     .then((account) => {
-        console.log(account);
-        res.render("profile", {
-            username: usernameStr,
-            email: account.email
-        });
+        console.log(userFound);
+        
+        res.redirect(`/profile/${account.username}`);
+        
     })
     .catch((err) => {
         console.log(err);
         res.render("login", {
             errorMsg: 'Username and/or password is incorrect.'
+            
         });
     });
+}
+
+
+exports.profile = async (req, res) => {
+    var param = req.params.userP;
+
+    var userFound =  await User.findOne()
+    .where("username")
+    .equals(param)
+    .select("username email")
+    .then((user) => {
+        res.render('profile', {
+            username: user.username,
+            email: user.email
+        })
+    })
     
+
 }
 
 exports.edit = (req, res) => {

@@ -16,13 +16,15 @@ const express = require('express'),
     app.get('/', routes.index);
     app.get('/create', routes.create);
     app.get('/login', routes.login);
+    app.get('/profile/:userP', routes.profile);
     app.get('/profile', routes.profile);
     app.get('/edit', routes.edit);
     app.get('/delete', routes.delete);
 
      //Account
     app.post('/create/Account', urlencodedParser, routes.createAcc);
-    app.post('/profile/login', urlencodedParser, routes.profile);
+    app.post('/profile/login', urlencodedParser, routes.loginCheck);
+    app.post('/edit/prof', urlencodedParser, routes.edit);
 
 
 
