@@ -56,6 +56,14 @@ exports.createAcc = (req, res) => {
         });
 }
 
+exports.create = (req, res) => {
+    res.render('create', {
+        title: 'Create Account'
+
+    });
+
+}
+
 exports.login = (req, res) => {
     res.render ('login', {
         title: 'Login into Account'
