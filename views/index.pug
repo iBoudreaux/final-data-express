@@ -8,9 +8,9 @@ block content
 
             h2 Recent Annoucements
             ul
-                li
-                li
-                li
+                li Beta Testing for Site
+                li Upcoming- Fandom
+                li Upcoming- Chat Rooms
             h2 Explore Poniverse
             
             ul
@@ -21,4 +21,34 @@ block content
                 li
                     a(href='/delete') Delete Account
 
-            
+            h2 Pony Questions
+            form(id='form' method="post" action="/loggedin")
+                p Favorite Pony?
+                div.dropdown
+                    select
+                    option(value='twilight') Twilight Sparkle
+                    option(value='applejack') Applejack
+                    option(value='rainbow') Rainbow Dash
+                    option(value='rarity') Rarity
+                    option(value='fluttershy') Fluttershy
+                    option(value='pinkie') Pinkie Pie
+
+                p Favorite Cutie Mark?
+                div.dropdown
+                    select
+                    option(value='twilight') Twilight Sparkle's
+                    option(value='applejack') Applejack's
+                    option(value='rainbow') Rainbow Dash's
+                    option(value='rarity') Rarity's
+                    option(value='fluttershy') Fluttershy's
+                    option(value='pinkie') Pinkie Pie's
+
+                p Who would win? Twilight Sparkle or Goku?
+                div.dropdown
+                    select
+                    option(value='twilight') Twilight Sparkle
+                    option(value='goku') Goku
+
+                br
+                p
+                input(type='submit' value='Create Account')
