@@ -104,10 +104,17 @@ exports.profile = async (req, res) => {
     .equals(param)
     .select("username email")
     .then((user) => {
-        res.render('profile', {
-            username: user.username,
-            email: user.email
-        })
+        if(user) {
+            res.render('profile', {
+                username: user.username,
+                email: user.email
+            })
+        } else {
+            res.render('profile', {
+                errorMsg: 'User not found'
+
+            });
+        }
     })
     
 
