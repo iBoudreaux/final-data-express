@@ -20,19 +20,66 @@ block head-block
                             i(class="fa-solid fa-right-from-bracket")
                 div(class="rightbox")
                     div(class="profile")
-                        h1 Edit Questions
+                        h1 Edit Account
                             form(id= 'form' method="post" action="/update/Account/#user._id}")
-                                div(class="space")
-                                h2 Favorite Pony?
-                                    text(id='q1')
-                                        input(type='text' name='ans1' )
-                                div(class="space")
-                                h2 Favorite Cutie Mark?
-                                    text(id='q2')
-                                        input(type='text' name='ans2' )
-                                div(class="space")
-                                h2  Who would win? Twilight Sparkle or Goku?
-                                    text(id='q3')
-                                        input(type='text' name='ans3' )
-
-                                input(type='submit' value='Update Answers')
+                                div.editLeft
+                                    div.space
+                                    h2 Username
+                                        text 
+                                    input(type='text' name='username' )
+                                    div.space
+                                    h2 Password
+                                        text 
+                                    input(type='text' name='password' )
+                                    div.space
+                                    h2 Email
+                                        text 
+                                    input(type='text' name='email' )
+                                    div.space
+                                    h2 Age
+                                        text 
+                                    input(type='number' name='age' )
+                                div.editRight
+                                    h2 Favorite Pony?
+                                        text(id='q1')
+                                    div.dropdown
+                                        select
+                                            option(value='twilight')
+                                                | Twilight Sparkle
+                                            option(value='applejack')
+                                                | Applejack
+                                            option(value='raindbow')
+                                                | Rainbow Dash
+                                            option(value='rarity')
+                                                | Rarity
+                                            option(value='flutter')
+                                                | Fluttershy
+                                            option(value='pinkie')
+                                                | Pinkie Pie
+                                    div(class="space")
+                                    h2 Favorite Cutie Mark?
+                                        text(id='q2')
+                                    div.dropdown
+                                        select
+                                            option(value='twilight')
+                                                | Twilight Sparkle's
+                                            option(value='applejack')
+                                                | Applejack's
+                                            option(value='raindbow')
+                                                | Rainbow Dash's
+                                            option(value='rarity')
+                                                | Rarity's
+                                            option(value='flutter')
+                                                | Fluttershy's
+                                            option(value='pinkie')
+                                                | Pinkie Pie's
+                                    div(class="space")
+                                    h2  Who would win? Twilight Sparkle or Goku?
+                                        text(id='q3')
+                                    div.dropdown
+                                        select
+                                            option(value='twilight')
+                                                | Twilight Sparkle
+                                            option(value='goku')
+                                                | Goku
+                                input(class='editBtn' type='submit' value='Update Account')

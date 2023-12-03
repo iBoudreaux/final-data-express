@@ -5,33 +5,64 @@ block content
     div.layoutspace
         div.container
             form(id='form' method="post" action="/loggedin")
-                p Username: 
+                p Username : 
                     p
                         input(type='text' name='username') 
-                p Password: 
+                p Password : 
                     p
-                        input(type='text' name='password')
-                p Email: 
+                        input(type='password' name='password')
+                p Email : 
                     p
                         input(type='text' name='email')
-                p Age: 
+                p Age : 
                     p
-                        input(type='text' name='age')
+                        input(type='number' name='age')
                 br
-                h2 Questions:
+                h2 Questions :
                 br
                 p Favorite Pony?
                     text=q1
                     p
-                        input(type='text' name='ans1')
+                        div.dropdown
+                            select
+                                option(value='twilight')
+                                    | Twilight Sparkle
+                                option(value='applejack')
+                                    | Applejack
+                                option(value='raindbow')
+                                    | Rainbow Dash
+                                option(value='rarity')
+                                    | Rarity
+                                option(value='flutter')
+                                    | Fluttershy
+                                option(value='pinkie')
+                                    | Pinkie Pie
                 p Favorite Cutie Mark?
                     text(id='q2')
                     p
-                        input(type='text' name='ans2')
+                        div.dropdown
+                            select
+                                option(value='twilight')
+                                    | Twilight Sparkle's
+                                option(value='applejack')
+                                    | Applejack's
+                                option(value='raindbow')
+                                    | Rainbow Dash's
+                                option(value='rarity')
+                                    | Rarity's
+                                option(value='flutter')
+                                    | Fluttershy's
+                                option(value='pinkie')
+                                    | Pinkie Pie's
                 p Who would win? Twilight Sparkle or Goku?
                     text(id='q3')
                     p
-                        input(type='text' name='ans3')
+                        div.dropdown
+                            select
+                                option(value='twilight')
+                                    | Twilight Sparkle
+                                option(value='goku')
+                                    | Goku
                 br
                 p 
                     input(type='submit' value='Create Account')

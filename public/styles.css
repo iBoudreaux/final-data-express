@@ -129,6 +129,25 @@ input[type=text]{
     border-radius: 5px;
     border-color: rgb(10, 103, 134);
     background-color: rgb(184, 214, 224);
+    text-align: center;
+}
+
+input[type=number]{
+    height: 30px;
+    color: #0a6786;
+    border-radius: 5px;
+    border-color: rgb(10, 103, 134);
+    background-color: rgb(184, 214, 224);
+    text-align: center;
+}
+
+input[type=password]{
+    height: 30px;
+    color: #0a6786;
+    border-radius: 5px;
+    border-color: rgb(10, 103, 134);
+    background-color: rgb(184, 214, 224);
+    text-align: center;
 }
 
 h2 {
@@ -180,4 +199,20 @@ h2 {
     align-items: center;
     position: absolute;
     margin-top: 250px;
+}
+
+.dropdown select {
+    margin-left: 28%;
+    height: 30px;
+    width: 44%;
+    color: #0a6786;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: rgb(10, 103, 134);
+    background-color: rgb(184, 214, 224);
+    text-align: center;
+}
+
+.dropdown option {
+    color: #0a6786;
 }
