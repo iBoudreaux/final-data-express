@@ -22,9 +22,9 @@ block head-block
                     div(class="profile")
                         h1 Delete Account?
                             form(id='form' method="post" action="/deleteprof")
-                                div.editLeft
+                                .deleteContainer 
                                     div.space
-                                        h2 Username
+                                        h2.deleteh2 Your Username
                                             text 
-                                        input(type='text' name='username' value=usernameVal )
+                                        input(class='userInput' type='text' name='username' value=usernameVal )
                                         input(class='editBtn' type='submit' value='Delete Account')

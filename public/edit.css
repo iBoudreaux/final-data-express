@@ -166,13 +166,25 @@ input[type=number]{
     margin-right: 50%;
 }
 
-.deleteh2 {
-    margin-left: -20px;
+.deleteContainer {
+    margin-right: 150px;
+    margin-top: 70px;
+    margin-left: 50px;
 }
 
-.editBtn {
-    margin-left: 75px;
+.deleteh2 {
+    margin-left: 30px;
 }
+
+.userInput {
+    margin-left: 30px;
+}
+
+/* .editBtn {
+    margin-left: 35px;
+} */
+
+
 
 .dropdown select {
     height: 25px;
