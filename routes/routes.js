@@ -125,8 +125,7 @@ exports.editProf = async (req, res) => {
         let passwordStr = req.body.password;
         let ageStr = req.body.age;
         
-        let foundUser = User.findOne({username: usernameStr})
-        let doc = await User.findByIdAndUpdate({username: usernameStr}, 
+        let doc = await User.findOneAndUpdate({username: usernameStr}, 
             {email: emailStr, password: passwordStr, age: ageStr});
             doc = await User.findOne({username: usernameStr})
             
