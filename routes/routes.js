@@ -32,6 +32,12 @@ exports.index = (req, res) => {
     });
 }
 
+exports.profile = (req, res) => {
+    res.render("profile", {
+        title: "User Profile"
+    })
+}
+
 //render for create acc form
 exports.createAcc = (req, res) => {
     let ageNum = Number(req.body.age);

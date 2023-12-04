@@ -18,6 +18,7 @@ const express = require('express'),
     app.get('/login', routes.login);
     app.get('/edit', routes.edit);
     app.get('/delete', routes.delete);
+    app.get('/profile', routes.profile);
 
     //Account Creation/Audit
     app.post('/create/Account', urlencodedParser, routes.createAcc);
