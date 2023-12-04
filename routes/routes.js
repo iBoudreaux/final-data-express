@@ -70,64 +70,95 @@ exports.login = (req, res) => {
     });
 }
 
+//Checks user login
 exports.loginCheck = async (req, res) => {
-    let usernameStr = req.body.username;
-    let passwordStr = req.body.password;
+    let username = req.body.username;
+    let password = req.body.password;
+    console.log(`Name: ${username} Pass: ${password}`)
+    res.render('login', {
 
-    var userFound =  await User.findOne()
-    .where("username")
-    .equals(usernameStr)
-    .where("password")
-    .equals(passwordStr)
-    .select("username email age password answer1 answer2 answer3")
-    .then((account) => {
-        console.log(userFound);
-        
-        res.redirect(`/profile/${account.username}`);
-        
     })
-    .catch((err) => {
-        console.log(err);
-        res.render("login", {
-            errorMsg: 'Username and/or password is incorrect.'
-            
-        });
-    });
 }
 
+//POST Route
+exports.userProf = async (req, res) => {
+    try {
+        let usernameStr = req.body.username;
+        let passwordStr = req.body.password;
+        
+        console.log(`Name: ${usernameStr} Pass: ${passwordStr}`);
 
-exports.profile = async (req, res) => {
-    var param = req.params.userP;
-
-    var userFound =  await User.findOne()
-    .where("username")
-    .equals(param)
-    .select("username email")
-    .then((user) => {
-        if(user) {
+        User.findOne({username: usernameStr, password: passwordStr})
+        .then((userF) => {
+            console.log(userF);
             res.render('profile', {
-                username: user.username,
-                email: user.email
+                username: userF.username,
+                email: userF.email
             })
-        } else {
-            res.render('profile', {
-                errorMsg: 'User not found'
+        })
+        .catch((error) =>{
+            res.render('login',{
+                errorMsg: 'Username/password incorrect.'
+            })
+        })
+        
 
-            });
-        }
+    } catch (error) {
+        console.log(error);
+    }
+    
+}
+
+//GET Route
+exports.edit = async (req, res) => {
+
+    res.render('edit', {
+
     })
     
-
 }
 
-exports.edit = (req, res) => {
-    res.render ('edit', {
-        title: 'Edit Your Account'
-    });
+exports.editProf = async (req, res) => {
+    try{
+        let usernameStr = req.body.username;
+        let emailStr = req.body.email;
+        let passwordStr = req.body.password;
+        let ageStr = req.body.age;
+        
+        let foundUser = User.findOne({username: usernameStr})
+        let doc = await User.findByIdAndUpdate({username: usernameStr}, 
+            {email: emailStr, password: passwordStr, age: ageStr});
+            doc = await User.findOne({username: usernameStr})
+            
+        res.render ('edit', {
+            usernameVal: doc.username,
+            passVal: doc.password,
+            emailVal: doc.email,
+            ageVal: doc.age
+            
+        });
+    } catch(error){
+        console.log(error);
+    }
 }
 
+//GET delete pug render
 exports.delete = (req, res) => {
-    res.render ('delete', {
-        title: 'Delete Account'
-    });
+    res.render("delete", {
+        title: "Delete Account"
+    })
+}
+
+//POST delete logic
+exports.deleteProf = async (req, res) => {
+    try {
+        let usernameStr = req.body.username;
+        await User.findOneAndDelete({username: usernameStr});
+        console.log("Successfully deleted account");
+
+        res.redirect('/');
+    
+    } catch (error) {
+        console.log(error);
+    }
 }

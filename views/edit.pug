@@ -12,7 +12,7 @@ block head-block
                     nav(class="navbar2") 
                         a(href="/profile" class="overview")
                             i(class="fa fa-user")
-                        a(href="/edit" class="edit")
+                        a(href="/edit" id="editID" class="edit")
                             i(class="fa-solid fa-pencil")
                         a(href="/delete" class="delete")
                             i(class="fa-solid fa-user-xmark")
@@ -21,40 +21,40 @@ block head-block
                 div(class="rightbox")
                     div(class="profile")
                         h1 Edit Account
-                            form(id= 'form' method="post" action="/edit/prof")
+                            form(id='form' method="post" action="/editprof")
                                 div.editLeft
                                     div.space
                                     h2 Username
                                         text 
-                                    input(type='text' name='username' )
+                                    input(type='text' name='username' value=usernameVal )
                                     div.space
                                     h2 Password
                                         text 
-                                    input(type='text' name='password' )
+                                    input(type='text' name='password'  value=passVal)
                                     div.space
                                     h2 Email
                                         text 
-                                    input(type='text' name='email' )
+                                    input(type='text' name='email'   value=emailVal)
                                     div.space
                                     h2 Age
                                         text 
-                                    input(type='number' name='age' )
+                                    input(type='number' name='age' value=ageVal )
                                 div.editRight
                                     h2 Favorite Pony?
                                         text(id='q1')
                                     div.dropdown
                                         select
-                                            option(value='twilight')
+                                            option(value='twilight' id=op1)
                                                 | Twilight Sparkle
-                                            option(value='applejack')
+                                            option(value='applejack' id=op2)
                                                 | Applejack
-                                            option(value='raindbow')
+                                            option(value='raindbow' id=op3)
                                                 | Rainbow Dash
-                                            option(value='rarity')
+                                            option(value='rarity' id=op4)
                                                 | Rarity
-                                            option(value='flutter')
+                                            option(value='flutter' id=op5)
                                                 | Fluttershy
-                                            option(value='pinkie')
+                                            option(value='pinkie' id=op6)
                                                 | Pinkie Pie
                                     div(class="space")
                                     h2 Favorite Cutie Mark?

@@ -19,6 +19,12 @@ block head-block
                         a(href="/" class="signout")
                             i(class="fa-solid fa-right-from-bracket")
                 div(class="rightbox")
-                    div(class="delete2")
-                        h2.deleteh2 Delete Account?
-                        input(class='btn' type='submit' value='Delete Account')
+                    div(class="profile")
+                        h1 Delete Account?
+                            form(id='form' method="post" action="/deleteprof")
+                                div.editLeft
+                                    div.space
+                                        h2 Username
+                                            text 
+                                        input(type='text' name='username' value=usernameVal )
+                                        input(class='editBtn' type='submit' value='Delete Account')
