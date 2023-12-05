@@ -13,7 +13,7 @@ db.on('error', console.error.bind(console, 'DB Connection Error'));
 
 db.once('open', callback => {});
 
-//property/attribute - value schema for database
+//property - value schema for database
 let userDataSchema = mongoose.Schema({
     username: String,
     password: String,
@@ -24,37 +24,75 @@ let userDataSchema = mongoose.Schema({
     answer3: String
 });
 
+//Model
 let User = mongoose.model('Data_Collection', userDataSchema);
 
-exports.index = (req, res) => {
-    res.render ('index', {
-        title: 'Home Page'
-    });
-}
 
-exports.profile = (req, res) => {
-    res.render("profile", {
-        title: "User Profile"
-    })
+//Views
+exports.index = (req, res) => {
+    var session = req.session;
+    session.userid = session.userid;
+    if(session.userid){
+        req.session.destroy();
+        res.redirect('/');
+
+    } else {
+        res.render ('index', {
+            title: 'Home Page'
+        });
+    }
+    
 }
 
 //render for create acc form
+exports.create = (req, res) => {
+    res.render ('create', {
+        title: 'Create an Account'
+    });
+}
+
+//creating record/Account
 exports.createAcc = (req, res) => {
     let ageNum = Number(req.body.age);
+
+    //Question 1
+    const ponies = {
+        twilight,
+        applejack,
+        rainbowdash,
+        fluttershy,
+        pinkiepie
+    } = req.body;
+
+    //Question 2
+    const cutiemarks = {
+        twilights,
+        applejacks,
+        fluttershys,
+        pinkies
+    } = req.body;
+
+    //Question 3
+    const opponents = {
+        twilight, 
+        goku
+    } = req.body;
+
     let account = new User({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
         age: ageNum,
-        answer1: req.body.ans1,
-        answer2: req.body.ans2,
-        answer3: req.body.ans3
+        answer1: ponies.select1,
+        answer2: cutiemarks.select2,
+        answer3: opponents.select3
     });
 
     account.save()
         .then((account) => {
             console.log(account);
-            res.send('Account made successfully.');
+            res.redirect("/login")
+            
         })
         .catch((err) => {
             console.log(err);
@@ -62,28 +100,10 @@ exports.createAcc = (req, res) => {
         });
 }
 
-exports.create = (req, res) => {
-    res.render('create', {
-        title: 'Create Account'
-
-    });
-
-}
-
 exports.login = (req, res) => {
     res.render ('login', {
         title: 'Login into Account'
     });
-}
-
-//Checks user login
-exports.loginCheck = async (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    console.log(`Name: ${username} Pass: ${password}`)
-    res.render('login', {
-
-    })
 }
 
 //POST Route
@@ -97,9 +117,19 @@ exports.userProf = async (req, res) => {
         User.findOne({username: usernameStr, password: passwordStr})
         .then((userF) => {
             console.log(userF);
+            session = req.session;
+            session.userid = usernameStr;
+            console.log(req.session);
+
             res.render('profile', {
                 username: userF.username,
-                email: userF.email
+                email: userF.email,
+                password: userF.password,
+                age: userF.age,
+                ans1: userF.answer1,
+                ans2: userF.answer2,
+                ans3: userF.answer3
+                
             })
         })
         .catch((error) =>{
@@ -115,55 +145,152 @@ exports.userProf = async (req, res) => {
     
 }
 
+//GET Route for User Prof
+exports.getProf = (req, res) => {
+    var session = req.session;
+        session.userid = session.userid;
+        if (session.userid){
+            User.findOne({username: session.userid})
+            .then((userF) => {
+                res.render('profile', {
+                    username: userF.username,
+                    email: userF.email,
+                    password: userF.password,
+                    age: userF.age,
+                    ans1: userF.answer1,
+                    ans2: userF.answer2,
+                    ans3: userF.answer3
+                    
+                })
+            })
+        } else {
+            res.send("You don't have access to this.")
+        }
+}
+
 //GET Route
 exports.edit = async (req, res) => {
-
-    res.render('edit', {
-
-    })
+    var session = req.session;
+    session.userid = session.userid;
+    if(session.userid){
+        User.findOne({username: session.userid})
+        .then((userfound) => {
+            res.render('edit', {
+                usernameVal: userfound.username,
+                passVal: userfound.password,
+                emailVal: userfound.email,
+                ageVal: userfound.age   
+            })
+        })
+        
+    } else{
+        res.send("You do not have acess to this");
+    }
+    
     
 }
 
 exports.editProf = async (req, res) => {
-    try{
-        let usernameStr = req.body.username;
-        let emailStr = req.body.email;
-        let passwordStr = req.body.password;
-        let ageStr = req.body.age;
-        
-        let doc = await User.findOneAndUpdate({username: usernameStr}, 
-            {email: emailStr, password: passwordStr, age: ageStr});
-            doc = await User.findOne({username: usernameStr})
-            
-        res.render ('edit', {
-            usernameVal: doc.username,
-            passVal: doc.password,
-            emailVal: doc.email,
-            ageVal: doc.age
-            
-        });
-    } catch(error){
-        console.log(error);
+        try{
+            var session = req.session;
+            session.userid = session.userid;
+
+            if(session.userid){
+                let usernameStr = req.body.username;
+                let emailStr = req.body.email;
+                let passwordStr = req.body.password;
+                let ageStr = req.body.age;
+                
+                //Question 1
+                const ponies = {
+                    twilight,
+                    applejack,
+                    rainbowdash,
+                    fluttershy,
+                    pinkiepie
+                } = req.body;
+
+                //Question 2
+                const cutiemarks = {
+                    twilights,
+                    applejacks,
+                    fluttershys,
+                    pinkies
+                } = req.body;
+
+                //Question 3
+                const opponents = {
+                    twilight, 
+                    goku
+                } = req.body;
+
+                console.log(ponies.select1);
+                console.log(cutiemarks.select2);
+                console.log(opponents.select3);
+
+                let doc = await User.findOneAndUpdate({username: session.userid}, 
+                    {email: emailStr, password: passwordStr, age: ageStr, 
+                        answer1: ponies.select1, answer2: cutiemarks.select2,
+                        answer3: opponents.select3});
+                    doc = await User.findOne({username: usernameStr})
+                    
+                res.render ('edit', {
+                    usernameVal: doc.username,
+                    passVal: doc.password,
+                    emailVal: doc.email,
+                    ageVal: doc.age            
+                });
+            } else {
+                res.send('You do not have access to this');
+            }
+        } catch(error){
+            console.log(error);
+        }
     }
-}
 
 //GET delete pug render
 exports.delete = (req, res) => {
-    res.render("delete", {
-        title: "Delete Account"
-    })
+    var session = req.session;
+    session.userid = session.userid;
+    if(session.userid){
+        res.render("delete", {
+            usernameTxt: session.userid
+        })
+    } else {
+        res.send("You don't have access to this.");
+    }
+    
 }
 
 //POST delete logic
 exports.deleteProf = async (req, res) => {
     try {
-        let usernameStr = req.body.username;
-        await User.findOneAndDelete({username: usernameStr});
-        console.log("Successfully deleted account");
-
-        res.redirect('/');
+        var session = req.session;
+        session.userid = session.userid;
+        if(session.userid){
+            await User.findOneAndDelete({username: session.userid});
+            console.log("Successfully deleted account");
+            req.session.destroy();
+    
+            res.redirect('/');
+        } else {
+            res.send("You don't have access to this.");
+        }
+        
     
     } catch (error) {
         console.log(error);
     }
 }
+
+//Logout
+exports.logout = (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+}
+
+//API 
+
+// routes.getAPI = (req, res) =>{
+    
+// }

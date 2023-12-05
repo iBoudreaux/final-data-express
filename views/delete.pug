@@ -24,7 +24,7 @@ block head-block
                             form(id='form' method="post" action="/deleteprof")
                                 .deleteContainer 
                                     div.space
-                                        h2.deleteh2 Your Username
-                                            text 
+                                        h2.deleteh2 Your Account:  
+                                            text=usernameTxt
                                         input(class='userInput' type='text' name='username' value=usernameVal )
-                                        input(type='submit' value='Delete Account')
+                                        input(class='editBtn' type='submit' value='Delete Account')
