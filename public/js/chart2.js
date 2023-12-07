@@ -1,12 +1,12 @@
 const ctx2 = document.getElementById('barChart2');
 
-new Chart(ctx2, {
+var chart = {
     type: 'bar',
     data: {
-        labels: ['Twilight', 'Applejack', 'Rainbowdash', 'Rarity', 'Fluttershy', 'Pinkie Pie'],
+        labels: ["Twilight's", "Applejack's", "Rainbowdash's", "Rarity's", "Fluttershy's", "Pinkie's"],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [],
             borderWidth: 1,
             backgroundColor: [
                 'rgba(153, 102, 255, 0.2)',
@@ -25,4 +25,48 @@ new Chart(ctx2, {
             }
         }
     }
-});
+};
+
+
+let chart2 = new Chart(ctx2, chart);
+
+
+async function addData(chart){
+
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((stats) => {
+        let twiVal = stats.data.question_2.twilights;
+        let appVal = stats.data.question_2.applejacks;
+        let rainbVal = stats.data.question_2.rainbowdashs;
+        let rarVal = stats.data.question_2.raritys;
+        let flutterVal = stats.data.question_2.fluttershys;
+        let pinkVal = stats.data.question_2.pinkiepies;
+
+        let dataArray = [];
+
+        dataArray.push(twiVal);
+        dataArray.push(appVal);
+        dataArray.push(rainbVal);
+        dataArray.push(rarVal);
+        dataArray.push(flutterVal);
+        dataArray.push(pinkVal);
+
+        chart.data.datasets[0].data.push(dataArray[0]);
+        chart.data.datasets[0].data.push(dataArray[1]);
+        chart.data.datasets[0].data.push(dataArray[2]);
+        chart.data.datasets[0].data.push(dataArray[3]);
+        chart.data.datasets[0].data.push(dataArray[4]);
+        chart.data.datasets[0].data.push(dataArray[5]);
+
+
+        chart.update();
+        })
+
+        
+        
+
+}
+
+addData(chart2);
