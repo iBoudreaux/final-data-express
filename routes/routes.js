@@ -62,24 +62,24 @@ exports.index = async (req, res) => {
 
         //Quick Mafs
         //fav pony
-        twiVal = (100 * twiVal) / allRec;
-        appVal = (100 * appVal) / allRec;
-        rainbVal = (100 * rainbVal) /allRec;
-        rarVal = (100 * rarVal) / allRec;
-        flutterVal = (100 * flutterVal) / allRec;
-        pinkVal = (100 * pinkVal) / allRec;
+        twiVal = Math.round((100 * twiVal) / allRec);
+        appVal = Math.round((100 * appVal) / allRec);
+        rainbVal = Math.round((100 * rainbVal) /allRec);
+        rarVal = Math.round((100 * rarVal) / allRec);
+        flutterVal = Math.round((100 * flutterVal) / allRec);
+        pinkVal = Math.round((100 * pinkVal) / allRec);
 
         //cutiemark
-        cuteTwi = (100 * cuteTwi) / allRec;
-        cuteApp = (100 * cuteApp) / allRec;
-        cuteRain = (100 * cuteRain) / allRec;
-        cuteRar = (100 * cuteRar) / allRec;
-        cuteFlutt = (100 * cuteFlutt) / allRec;
-        cutePink = (100 * cutePink) / allRec;
+        cuteTwi = Math.round((100 * cuteTwi) / allRec);
+        cuteApp = Math.round((100 * cuteApp) / allRec);
+        cuteRain = Math.round((100 * cuteRain) / allRec);
+        cuteRar = Math.round((100 * cuteRar) / allRec);
+        cuteFlutt = Math.round((100 * cuteFlutt) / allRec);
+        cutePink = Math.round((100 * cutePink) / allRec);
 
         //Versus
-        twiWinner = (100 * twiWinner) / allRec;
-        gokuWinner = (100 * gokuWinner) / allRec;
+        twiWinner = Math.round((100 * twiWinner) / allRec);
+        gokuWinner = Math.round((100 * gokuWinner) / allRec);
 
         res.render('index', {
             twilightVal: `${twiVal}%`,
@@ -118,7 +118,7 @@ exports.createAcc = async (req, res) => {
         rainbowdash,
         rarity,
         fluttershy,
-        pinkiepie
+        pinkie
     } = req.body;
 
     //Question 2
@@ -369,7 +369,7 @@ exports.getAPI = async (req, res) =>{
     let ans1counRain =  await User.find({}).where('answer1').equals('rainbowdash').countDocuments();
     let ans1counRar =  await User.find({}).where('answer1').equals('rarity').countDocuments();
     let ans1counFlutt =  await User.find({}).where('answer1').equals('fluttershy').countDocuments();
-    let ans1counPink =  await User.find({}).where('answer1').equals('pinkiepie').countDocuments();
+    let ans1counPink =  await User.find({}).where('answer1').equals('pinkie').countDocuments();
 
     //Question 2
     let ans2counTwi =  await User.find({}).where('answer2').equals('twilights').countDocuments();
