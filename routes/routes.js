@@ -1,6 +1,7 @@
 const {response} = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const bcryptjs = require('bcryptjs');
 
 //Database stuff
 
@@ -27,21 +28,76 @@ let userDataSchema = mongoose.Schema({
 //Model
 let User = mongoose.model('Data_Collection', userDataSchema);
 
-
 //Views
-exports.index = (req, res) => {
-    var session = req.session;
-    session.userid = session.userid;
-    if(session.userid){
-        req.session.destroy();
-        res.redirect('/');
+exports.index = async (req, res) => {
 
-    } else {
-        res.render ('index', {
-            title: 'Home Page'
-        });
-    }
-    
+    let allRec =  await User.find({}).countDocuments();
+
+    //API Call
+    let url = `http://localhost:3000/api`;
+    await axios.get(url)
+    .then(axios_res => {      
+        
+        //gathering data into vars
+        //Q1
+        let twiVal = axios_res.data.data.question_1.twilight;
+        let appVal = axios_res.data.data.question_1.applejack;
+        let rainbVal = axios_res.data.data.question_1.rainbowdash;
+        let rarVal = axios_res.data.data.question_1.rarity;
+        let flutterVal = axios_res.data.data.question_1.fluttershy;
+        let pinkVal = axios_res.data.data.question_1.pinkiepie;
+
+
+        //Q2
+        let cuteTwi = axios_res.data.data.question_2.twilights;
+        let cuteApp = axios_res.data.data.question_2.applejacks;
+        let cuteRain = axios_res.data.data.question_2.rainbowdashs;
+        let cuteRar = axios_res.data.data.question_2.raritys;
+        let cuteFlutt = axios_res.data.data.question_2.fluttershys;
+        let cutePink = axios_res.data.data.question_2.pinkiepies;
+
+        //Q3
+        let twiWinner = axios_res.data.data.question_3.twilight;
+        let gokuWinner = axios_res.data.data.question_3.goku;
+
+        //Quick Mafs
+        //fav pony
+        twiVal = (100 * twiVal) / allRec;
+        appVal = (100 * appVal) / allRec;
+        rainbVal = (100 * rainbVal) /allRec;
+        rarVal = (100 * rarVal) / allRec;
+        flutterVal = (100 * flutterVal) / allRec;
+        pinkVal = (100 * pinkVal) / allRec;
+
+        //cutiemark
+        cuteTwi = (100 * cuteTwi) / allRec;
+        cuteApp = (100 * cuteApp) / allRec;
+        cuteRain = (100 * cuteRain) / allRec;
+        cuteRar = (100 * cuteRar) / allRec;
+        cuteFlutt = (100 * cuteFlutt) / allRec;
+        cutePink = (100 * cutePink) / allRec;
+
+        //Versus
+        twiWinner = (100 * twiWinner) / allRec;
+        gokuWinner = (100 * gokuWinner) / allRec;
+
+        res.render('index', {
+            twilightVal: `${twiVal}%`,
+            appleVal: `${appVal}%`,
+            rainVal: `${rainbVal}%`,
+            rarityVal: `${rarVal}%`,
+            flutVal: `${flutterVal}%`,
+            pinkieVal: `${pinkVal}%`,
+            twiCuteVal: `${cuteTwi}%`,
+            appCuteVal: `${cuteApp}%`,
+            rainCuteVal: `${cuteRain}%`,
+            rarCuteVal: `${cuteRar}%`,
+            flutCuteVal: `${cuteFlutt}%`,
+            pinkieCuteVal: `${cutePink}%`,
+            twiWin: `${twiWinner}%`,
+            gokuWin: `${gokuWinner}%`
+        })  
+    })
 }
 
 //render for create acc form
@@ -52,14 +108,15 @@ exports.create = (req, res) => {
 }
 
 //creating record/Account
-exports.createAcc = (req, res) => {
+exports.createAcc = async (req, res) => {
     let ageNum = Number(req.body.age);
-
+    let saltRounds = 1;
     //Question 1
     const ponies = {
         twilight,
         applejack,
         rainbowdash,
+        rarity,
         fluttershy,
         pinkiepie
     } = req.body;
@@ -68,6 +125,8 @@ exports.createAcc = (req, res) => {
     const cutiemarks = {
         twilights,
         applejacks,
+        rainbowdashs,
+        raritys,
         fluttershys,
         pinkies
     } = req.body;
@@ -80,7 +139,8 @@ exports.createAcc = (req, res) => {
 
     let account = new User({
         username: req.body.username,
-        password: req.body.password,
+        //password hashing
+        password: await bcryptjs.hash(req.body.password, saltRounds),
         email: req.body.email,
         age: ageNum,
         answer1: ponies.select1,
@@ -111,26 +171,29 @@ exports.userProf = async (req, res) => {
     try {
         let usernameStr = req.body.username;
         let passwordStr = req.body.password;
-        
-        console.log(`Name: ${usernameStr} Pass: ${passwordStr}`);
 
-        User.findOne({username: usernameStr, password: passwordStr})
-        .then((userF) => {
+        
+        
+        User.findOne({username: usernameStr})
+        .then(async (userF) => {
             console.log(userF);
             session = req.session;
             session.userid = usernameStr;
-            console.log(req.session);
+            let hashedPass = userF.password;
 
-            res.render('profile', {
-                username: userF.username,
-                email: userF.email,
-                password: userF.password,
-                age: userF.age,
-                ans1: userF.answer1,
-                ans2: userF.answer2,
-                ans3: userF.answer3
-                
-            })
+            if(await bcryptjs.compare(passwordStr, hashedPass) == true ){
+                res.render('profile', {
+                    username: userF.username,
+                    email: userF.email,
+                    password: '******',
+                    age: userF.age,
+                    ans1: userF.answer1,
+                    ans2: userF.answer2,
+                    ans3: userF.answer3
+                    
+                })
+            }
+            
         })
         .catch((error) =>{
             res.render('login',{
@@ -155,7 +218,7 @@ exports.getProf = (req, res) => {
                 res.render('profile', {
                     username: userF.username,
                     email: userF.email,
-                    password: userF.password,
+                    password: '******',
                     age: userF.age,
                     ans1: userF.answer1,
                     ans2: userF.answer2,
@@ -168,7 +231,7 @@ exports.getProf = (req, res) => {
         }
 }
 
-//GET Route
+//GET Route for Edit Render
 exports.edit = async (req, res) => {
     var session = req.session;
     session.userid = session.userid;
@@ -177,19 +240,20 @@ exports.edit = async (req, res) => {
         .then((userfound) => {
             res.render('edit', {
                 usernameVal: userfound.username,
-                passVal: userfound.password,
+                passVal: '******',
                 emailVal: userfound.email,
                 ageVal: userfound.age   
             })
         })
         
     } else{
-        res.send("You do not have acess to this");
+        res.send("You do not have acess to this.");
     }
     
     
 }
 
+//POST vRoute for Edit Logic/Render
 exports.editProf = async (req, res) => {
         try{
             var session = req.session;
@@ -206,6 +270,7 @@ exports.editProf = async (req, res) => {
                     twilight,
                     applejack,
                     rainbowdash,
+                    rarity,
                     fluttershy,
                     pinkiepie
                 } = req.body;
@@ -214,6 +279,8 @@ exports.editProf = async (req, res) => {
                 const cutiemarks = {
                     twilights,
                     applejacks,
+                    rainbowdashs,
+                    raritys,
                     fluttershys,
                     pinkies
                 } = req.body;
@@ -228,15 +295,18 @@ exports.editProf = async (req, res) => {
                 console.log(cutiemarks.select2);
                 console.log(opponents.select3);
 
+                let saltRounds = 1;
+                let hashedPass = await bcryptjs.hash(passwordStr, saltRounds);
+
                 let doc = await User.findOneAndUpdate({username: session.userid}, 
-                    {email: emailStr, password: passwordStr, age: ageStr, 
+                    {email: emailStr, password: hashedPass, age: ageStr, 
                         answer1: ponies.select1, answer2: cutiemarks.select2,
                         answer3: opponents.select3});
                     doc = await User.findOne({username: usernameStr})
                     
                 res.render ('edit', {
                     usernameVal: doc.username,
-                    passVal: doc.password,
+                    passVal: '******',
                     emailVal: doc.email,
                     ageVal: doc.age            
                 });
@@ -262,7 +332,7 @@ exports.delete = (req, res) => {
     
 }
 
-//POST delete logic
+//POST delete logic/render
 exports.deleteProf = async (req, res) => {
     try {
         var session = req.session;
@@ -291,6 +361,64 @@ exports.logout = (req, res) => {
 
 //API 
 
-// routes.getAPI = (req, res) =>{
-    
-// }
+exports.getAPI = async (req, res) =>{
+
+    //Question 1 
+    let ans1counTwi =  await User.find({}).where('answer1').equals('twilight').countDocuments();
+    let ans1counApp =  await User.find({}).where('answer1').equals('applejack').countDocuments();
+    let ans1counRain =  await User.find({}).where('answer1').equals('rainbowdash').countDocuments();
+    let ans1counRar =  await User.find({}).where('answer1').equals('rarity').countDocuments();
+    let ans1counFlutt =  await User.find({}).where('answer1').equals('fluttershy').countDocuments();
+    let ans1counPink =  await User.find({}).where('answer1').equals('pinkiepie').countDocuments();
+
+    //Question 2
+    let ans2counTwi =  await User.find({}).where('answer2').equals('twilights').countDocuments();
+    let ans2counApp =  await User.find({}).where('answer2').equals('applejacks').countDocuments();
+    let ans2counRain =  await User.find({}).where('answer2').equals('rainbowdashs').countDocuments();
+    let ans2counRar =  await User.find({}).where('answer2').equals('raritys').countDocuments();
+    let ans2counFlutt =  await User.find({}).where('answer2').equals('fluttershys').countDocuments();
+    let ans2counPink =  await User.find({}).where('answer2').equals('pinkies').countDocuments();
+
+    //Question 3
+    let ans3counTwi =  await User.find({}).where('answer3').equals('twilight').countDocuments();
+    let ans3counGoku =  await User.find({}).where('answer3').equals('goku').countDocuments();
+
+
+        console.log(ans1counTwi);
+        console.log(ans1counApp);
+
+        res.json({
+            data: {
+                
+                    question_1: {
+                        twilight: ans1counTwi,
+                        applejack: ans1counApp,
+                        rainbowdash: ans1counRain,
+                        rarity: ans1counRar,
+                        fluttershy: ans1counFlutt,
+                        pinkiepie: ans1counPink
+                    }
+                    
+                ,
+
+                
+                    question_2: {
+                        twilights: ans2counTwi,
+                        applejacks: ans2counApp,
+                        rainbowdashs: ans2counRain,
+                        raritys: ans2counRar,
+                        fluttershys: ans2counFlutt,
+                        pinkiepies: ans2counPink
+                    }
+                ,
+
+                
+                    question_3: {
+                        twilight: ans3counTwi,
+                        goku: ans3counGoku
+                    }
+                
+
+            }
+        })
+}

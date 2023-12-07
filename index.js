@@ -47,6 +47,6 @@ const express = require('express'),
     
 
     //API
-    // app.post('/api', routes.getAPI);
+    app.get('/api', routes.getAPI); //json
 
     app.listen(3000);
