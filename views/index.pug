@@ -1,43 +1,22 @@
 extends layout
 
 block content 
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+
     div.layoutspace
         div.indexContainer
             h1 Welcome to Neumont MLP 
-
         div.boxContainer
             div.box
                 p Your Favorite Pony?
-                p Twilight: 
-                    p=twilightVal
-                p Applejack: 
-                    p=appleVal
-                p Rainbowdash: 
-                p=rainVal 
-                p Rarity: 
-                    p=rarityVal
-                p Fluttershy
-                    p=flutVal
-                p Pinkie Pie: 
-                    p=pinkieVal
+                canvas(id='barChart' width='400' height='200')
+                script(src='/js/chart1.js')
             div.box
                 p Your Favorite Cutie Mark?
-                p Twilight's: 
-                    p=twiCuteVal
-                p Applejack's: 
-                    p=appCuteVal
-                p Rainbowdash's: 
-                p=rainCuteVal 
-                p Rarity: 
-                    p=rarCuteVal
-                p Fluttershy's: 
-                    p=flutCuteVal
-                p Pinkie Pie's: 
-                    p=pinkieCuteVal
+                canvas(id='barChart2' width='400' height='200')
+                script(src='/js/chart2.js')
             div.box
                 p Who would win?
                 p Twilight Sparkle or Goku?
-                p Twilight: 
-                    p=twiWin
-                p Goku: 
-                    p=gokuWin
+                canvas(id='barChart3' width='400' height='200')
+                script(src='/js/chart3.js')

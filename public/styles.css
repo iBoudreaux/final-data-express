@@ -231,9 +231,15 @@ h2 {
     box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5s);
     background-color: #87c4d8;
     border-radius: 30px;
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
     border: 3px solid #0a6786;
-    position: relative;
+
 }
 
+canvas {
+    margin-top: 20px;
+
+}
+
+#barChart3 {
+    padding-bottom: 20px;
+}
