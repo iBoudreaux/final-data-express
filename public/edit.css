@@ -182,10 +182,17 @@ input[type=number]{
 
 .editBtn {
     margin-left: 65px;
+    bottom: -20px;
 }
 
+.spaceRight {
+    margin-top: 30px;
+}
+
+
+
 .dropdown select {
-    height: 25px;
+    height: 30px;
     border-width: 1px;
     border-style: solid;
     border-color: #0a6786;
